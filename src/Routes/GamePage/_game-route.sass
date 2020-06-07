@@ -1,0 +1,234 @@
+@import ../../sass/1-helpers/_mixins
+
+.game-page-container
+    height: -webkit-fill-available
+    margin-left: 10vw
+    margin-right: 10vw
+    margin-top: 15vh
+    margin-bottom: 5vh
+    max-height: 100vh
+
+.scoreboard-container 
+    display: flex
+    flex-direction: row
+
+
+.scoreboard 
+    display: flex
+    flex-direction: column
+
+
+.scoreboard-header 
+    margin-top: 0px
+    margin-bottom: 11px
+
+
+.player-container 
+    display: flex
+    flex-direction: row
+    width: 125px
+    justify-content: space-between
+    margin-top: 0px
+    height: 18px
+    align-items: center
+    margin-bottom: 14px
+
+
+.edit-button 
+    width: 88px
+    height: 40px
+    padding-left: 0px
+    padding-bottom: 0px
+    padding-right: 0px
+    padding-top: 0px
+    border-top-width: 2px
+    border-right-width: 2px
+    border-left-width: 2px
+    border-bottom-width: 2px
+    margin-left: 27px
+
+
+.dashboard 
+    display: flex
+    justify-content: space-between
+    width: -webkit-fill-available
+
+
+.card 
+    width: -webkit-fill-available
+    height: 250px
+    padding-right: 19px
+    border: solid 1px
+    padding-top: 19px
+    padding-bottom: 19px
+    padding-left: 19px
+    display: flex
+    flex-direction: column
+    margin-right: 25px
+    margin-left: 25px
+
+
+.turn-container 
+    display: flex
+    justify-content: flex-end
+    padding-bottom: 0px
+    border-bottom-width: 0px
+    margin-bottom: 0px
+
+
+.turn-text 
+    padding-top: 0px
+    border-bottom-width: 76px
+    padding-left: 0px
+    padding-right: 0px
+    padding-bottom: 0px
+    margin-top: 0px
+    margin-bottom: 0px
+
+
+.text-container 
+    padding-right: 0px
+    padding-left: 0px
+    padding-bottom: 0px
+    margin-right: 76px
+    margin-left: 76px
+    margin-bottom: 31‒
+    margin-bottom: 0px
+
+
+.card-text 
+    font-size: 32px
+    margin-top: 25px
+    margin-bottom: 0px
+
+
+.details-container 
+    display: flex
+    flex-direction: row
+    justify-content: space-between
+    margin-right: 25px
+    margin-left: 25px
+    width: -webkit-fill-available
+
+
+.counts-container 
+    display: flex
+    flex-direction: row
+
+
+.thread-count 
+    margin-right: 30px
+    margin-bottom: 0px
+
+
+.message-count 
+    margin-right: 30px
+    margin-bottom: 0px
+
+
+.player-name 
+    display: flex
+    justify-content: center
+    align-items: center
+
+
+.player-score 
+    margin-top: 0px
+    margin-bottom: 0px
+
+
+.timer 
+    margin-bottom: 0px
+
+
+.player-responses-header 
+    margin-bottom: 0px
+    margin-top: 35px
+
+
+.favorite-response 
+    margin-top: 15px
+    margin-bottom: 15px
+    font-size: 16px
+    text-transform: uppercase
+
+
+.response 
+    width: 314px
+    height: 112px
+    background-color: #d3d3d3
+    padding-top: 11px
+    padding-right: 11px
+    padding-bottom: 11px
+    padding-left: 11px
+    font-size: 87%
+    display: flex
+    align-items: center
+    margin-right: 21px
+    margin-bottom: 15px
+
+
+.responses 
+    display: flex
+    flex-direction: row
+    flex-wrap: wrap
+
+
+.wildcard 
+    border: solid 1px
+    padding: 8px
+    width: 211px
+    height: 151px
+    display: flex
+    align-items: center
+    margin-bottom: 15px
+
+
+.claim-wildcard 
+    display: none
+    margin-top: 15px
+    padding-top: 10px
+    padding-bottom: 10px
+
+
+@media screen and (max-width: 1262px) 
+    .dashboard 
+        flex-direction: column-reverse
+    
+
+    .scoreboard-container 
+        margin-bottom: 0px
+        margin-top: 35px
+    
+
+    .card 
+        width: auto
+    
+
+    .text-container 
+        margin-right: 0px
+        margin-left: 0px
+    
+
+    .thread-count 
+        margin-right: 15px
+    
+
+    .response 
+        width: 100%
+        margin-right: 0px
+    
+
+    .claim-wildcard 
+        display: block
+    
+
+    .wildcard-container 
+        display: none
+
+    .card, .details-container
+        margin-right: 0px
+        margin-left: 0px
+        width: -webkit-fill-available
+    
+

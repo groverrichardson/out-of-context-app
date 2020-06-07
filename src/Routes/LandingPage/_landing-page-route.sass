@@ -1,0 +1,33 @@
+@import ../../sass/1-helpers/_mixins
+
+body 
+    +flexCenter
+    height: 100vh
+
+.new,
+.returning,
+.how-to-play 
+    +mainButton
+
+.main-container 
+    flex-direction: column
+    +flexCenter
+
+.start-menu 
+    margin-top: 50px
+
+.returning 
+    margin-right: 15px
+    margin-left: 15px
+
+@media screen and (max-width: 555px) 
+    .start-menu 
+        display: flex
+        flex-direction: column
+        width: 100%
+    
+    .returning 
+        margin-left: 0px
+        margin-right: 0px
+        margin-top: 15px
+        margin-bottom: 15px
