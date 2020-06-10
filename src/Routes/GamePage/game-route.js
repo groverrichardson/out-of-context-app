@@ -11,10 +11,19 @@ export default class GamePage extends React.Component {
         };
     }
     render() {
+        const toggleScoreboard = () => {
+            const prevState = this.state;
+            this.setState({
+                scoreboardVisible: !prevState.scoreboardVisible ? true : false,
+            });
+        };
         return (
             <div className="game-page-container">
                 <div className="main-container">
-                    <Dashboard state={{ ...this.state }} />
+                    <Dashboard
+                        state={this.state}
+                        toggleScoreboard={toggleScoreboard}
+                    />
                     <ResponseSection />
                 </div>
                 <div className="player-responses"></div>

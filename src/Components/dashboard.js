@@ -5,16 +5,13 @@ import CardWindow from "../Components/card-window";
 import Wildcard from "../Components/wildcard";
 
 const Dashboard = (props) => {
-    const toggleScoreboard = () => {
-        const prevState = this.state;
-        this.setState({
-            scoreboardVisible: !prevState.scoreboardVisible ? true : false,
-        });
-    };
     return (
         <div className="dashboard">
             <Scoreboard state={{ ...props.state }} />
-            <button className="scoreboard-button" onClick={toggleScoreboard}>
+            <button
+                className="scoreboard-button"
+                onClick={props.toggleScoreboard}
+            >
                 {props.state.scoreboardVisible
                     ? "Hide Scoreboard"
                     : "Show Scoreboard"}
