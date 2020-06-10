@@ -5,6 +5,7 @@ import LandingPage from "./Routes/LandingPage/landing-page-route";
 import QuestionsPage from "./Routes/QuestionsPage/questions-route";
 import NotFoundPage from "./Routes/NotFoundPage/not-found-route";
 import GamePage from "./Routes/GamePage/game-route";
+// import GameContext from "../src/game-context";
 
 export default function App() {
     return (
