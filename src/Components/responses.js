@@ -1,8 +1,8 @@
 import React from "react";
 
-const ResponseSection = () => {
+const Responses = () => {
     return (
-        <div className="player-responses-container">
+        <div className="response-container">
             <h1 className="player-responses-header">Player Responses</h1>
             <h2 className="favorite-response">Choose your favorite response</h2>
             <div className="responses">
@@ -62,4 +62,4 @@ const ResponseSection = () => {
     );
 };
 
-export default ResponseSection;
+export default Responses;

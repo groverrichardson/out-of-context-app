@@ -1,10 +1,10 @@
 import React from "react";
 import Card from "../Components/card";
 
-const CardWindow = () => {
+const CardWindow = (props) => {
     return (
         <div className="card-container">
-            <Card />
+            <Card state={props.state} />
             <div className="details-container">
                 <div className="counts-container">
                     <p className="thread-count">Thread: 11</p>

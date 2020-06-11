@@ -12,6 +12,9 @@
     display: flex
     flex-direction: row
 
+.scoreboard-container-mobile
+    display: none
+    flex-direction: row
 
 .scoreboard 
     display: flex
@@ -37,10 +40,7 @@
 .edit-button 
     width: 88px
     height: 40px
-    padding-left: 0px
-    padding-bottom: 0px
-    padding-right: 0px
-    padding-top: 0px
+    +normalizePadding
     border-top-width: 2px
     border-right-width: 2px
     border-left-width: 2px
@@ -81,6 +81,7 @@
     border-bottom-width: 76px
     margin-top: 0px
     margin-bottom: 0px
+    align-self: flex-end
 
 
 .text-container 
@@ -149,8 +150,8 @@
 
 
 .response 
-    width: 314px
-    height: 112px
+    width: 247px
+    min-height: fit-content
     background-color: #d3d3d3
     padding-top: 11px
     padding-right: 11px
@@ -189,8 +190,78 @@
 .scoreboard-button
     +mobileButton
 
-.hide
-    display: none
+.player-message-section
+    display: flex
+    flex-direction: row
+    align-self: flex-start
+    width: 1082px
+    justify-content: space-between
+
+.player-view
+    display: flex
+    flex-direction: row
+    align-self: flex-start
+    width: 1082px
+    justify-content: space-between
+    flex-wrap: wrap
+
+.message-board 
+    margin-top: 35px
+    width: 500px
+    display: flex
+    flex-direction: column
+
+.message-viewport
+    border: solid 1px black
+    width: 472px
+    height: 180px
+    border-bottom: none
+    padding: 14px
+
+#message-response 
+    width: 500px
+    padding-right: 0px
+    padding-left: 0px
+    border: solid 1px
+    padding-top: 0px
+    height: 61px
+    margin-bottom: 10px
+
+.response-container
+    width: 651px
+
+.message-board-header 
+    margin-top: 0px
+
+.submit-button
+    +mediumButton
+
+.card-container
+    max-width: 564px
+    align-self: center
+
+.answer-submit
+    margin-top: 16px
+    display: flex
+    flex-direction: column
+    margin-bottom: 16px
+
+.player-answer
+    height: 200px
+    width: 500px
+
+.answer-submit-button
+    +mediumButton
+
+.player-view-button, .judge-view-button
+    +mediumButton
+
+.view-buttons
+    margin-bottom: 25px
+    width: 301px
+    display: flex
+    flex-direction: row
+    justify-content: space-between
 
 
 @media screen and (max-width: 1262px) 
@@ -201,6 +272,14 @@
     .scoreboard-container 
         margin-bottom: 0px
         margin-top: 35px
+        align-self: center
+        display: none
+    
+    .scoreboard-container-mobile
+        margin-bottom: 0px
+        margin-top: 35px
+        align-self: center
+        display: flex
 
     .card 
         width: auto
@@ -235,5 +314,23 @@
 
     .thread-count, .message-count, .timer
         +counter
-    
 
+    .player-message-section
+        flex-wrap: wrap
+        width: 90vw
+
+    .message-board
+        width: 90vw
+
+    .message-viewport, #message-response, .answer-submit, .player-answer
+        width: -webkit-fill-available
+
+    .respone-container
+        width: 90vw
+
+    .player-view
+        width: 90vw
+
+
+.hide
+    display: none
