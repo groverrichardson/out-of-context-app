@@ -1,14 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import img from "../../assets/Logo.png";
 
 export default function LandingPage() {
     return (
         <div class="main-container">
-            <img
-                src="../assets/Logo.png"
-                alt="Out of Context logo"
-                class="logo"
-            />
+            <img src={img} alt="Out of Context logo" class="logo" />
             <div class="start-menu">
                 <Link to={"/questions"} class="new">
                     New Game
