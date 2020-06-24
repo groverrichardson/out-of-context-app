@@ -4,7 +4,7 @@ import EditButton from "./edit-button";
 export default class Scoreboard extends React.Component {
     render() {
         const showScoreboard = () => {
-            if (this.props.state.scoreboardVisible == false) {
+            if (this.props.state.scoreboardVisible === false) {
                 return "hide";
             } else {
                 return "";

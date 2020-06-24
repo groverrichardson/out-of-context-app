@@ -1,7 +1,7 @@
 import React from "react";
 import MessageBoard from "./message-board";
-import Responses from "./responses";
-import { Link } from "react-router-dom";
+// import Responses from "./responses";
+// import { Link } from "react-router-dom";
 
 const ResponseSectionPlayer = () => {
     return (

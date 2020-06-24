@@ -2,7 +2,7 @@ import React from "react";
 
 export default function Card(props) {
     const updateTurn = () => {
-        if (props.state.activeView == "Player") {
+        if (props.state.activeView === "Player") {
             return <p className="turn-text">John Doe's Turn</p>;
         } else {
             return <p className="turn-text">Your Turn</p>;

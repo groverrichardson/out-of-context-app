@@ -2,7 +2,7 @@ import React from "react";
 import Dashboard from "../../Components/dashboard";
 import ResponseSection from "../../Components/response-section-judge";
 import ResponseSectionPlayer from "../../Components/response-section-player";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 
 export default class GamePage extends React.Component {
     constructor(props) {
@@ -19,17 +19,16 @@ export default class GamePage extends React.Component {
             this.setState({
                 scoreboardVisible: !prevState.scoreboardVisible ? true : false,
             });
-            console.log(this.state.scoreboardVisible);
         };
         const displayView = () => {
-            if (this.state.activeView == "Player") {
+            if (this.state.activeView === "Player") {
                 return <ResponseSectionPlayer />;
-            } else if (this.state.activeView == "Judge") {
+            } else if (this.state.activeView === "Judge") {
                 return <ResponseSection />;
             }
         };
         const handleClick = (e) => {
-            if (e.target.className == "player-view-button") {
+            if (e.target.className === "player-view-button") {
                 this.setState({
                     activeView: "Player",
                 });
