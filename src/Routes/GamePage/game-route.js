@@ -9,6 +9,7 @@ export default class GamePage extends React.Component {
     state = {
         activeView: "Player",
     };
+
     render() {
         return (
             <GameContext.Consumer>
@@ -33,7 +34,9 @@ export default class GamePage extends React.Component {
                         }
                     };
                     const displayView = () => {
-                        if (this.state.activeView === "Player") {
+                        if (
+                            localStorage.getItem("player_status") === "Player"
+                        ) {
                             return <ResponseSectionPlayer />;
                         } else {
                             return <ResponseSection />;

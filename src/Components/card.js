@@ -2,6 +2,44 @@ import React from "react";
 import { GameContext } from "../game-context";
 
 export default class Card extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            card: {
+                cardCopy: "",
+                thread: "",
+                message: "",
+            },
+        };
+    }
+
+    componentDidMount() {
+        fetch(
+            `http://localhost:8000/dashboard?game_id=${localStorage.getItem(
+                "game_id"
+            )}`
+        )
+            .then((gameData) => gameData.json())
+            .then((gameData) =>
+                fetch(`http://localhost:8000/card/${gameData.active_card}`)
+            )
+            .then((cardData) => cardData.json())
+            .then((cardData) => {
+                this.setState({
+                    card: {
+                        cardCopy: cardData[0].card_copy,
+                        thread: cardData[0].thread_count,
+                        message: cardData[0].card_count,
+                    },
+                });
+            });
+    }
+
+    displayCardText() {
+        return <p className="card-text">{this.state.card.cardCopy}</p>;
+    }
+
     render() {
         return (
             <GameContext.Consumer>
@@ -18,10 +56,7 @@ export default class Card extends React.Component {
                             <div className="turn-container"></div>
                             {updateTurn()}
                             <div className="text-container">
-                                <p className="card-text">
-                                    You arrive at the Emergency room, they ask
-                                    why you're here. You calmly say...
-                                </p>
+                                {this.displayCardText()}
                             </div>
                         </div>
                     );

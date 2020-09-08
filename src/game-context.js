@@ -1,26 +1,43 @@
-import React, { Component, createContext } from "react";
-import { Redirect } from "react-router-dom";
-import GameApiService from "./services/game_api_service";
+import React, { Component, createContext } from 'react';
+import { Redirect } from 'react-router-dom';
+import GameApiService from './services/game_api_service';
 
 export const GameContext = createContext();
 
 class GameContextProvider extends Component {
-    state = {
-        mainPlayerName: "",
-        players: [],
-        sessionName: "",
-        questionError: false,
-        errorMessage: [],
-        scoreboardVisible: false,
-        buttonText: true,
-        activeView: "Player",
-    };
+    constructor() {
+        super();
+        this.state = {
+            mainPlayerName: '',
+            players: [],
+            sessionName: '',
+            questionError: false,
+            errorMessage: [],
+            scoreboardVisible: false,
+            buttonText: true,
+            activeView: 'Player',
+            game_id: '',
+            newGame: true,
+            current_judge: '',
+        };
+    }
 
     updateContext = (newUpdate) => {
         const key = Object.keys(newUpdate);
         const value = Object.values(newUpdate);
+
         this.setState({
-            [key]: value,
+            [key[0]]: value[0],
+        });
+        console.log(this.state);
+    };
+
+    updatePlayersContext = (newUpdate) => {
+        const key = Object.keys(newUpdate);
+        const value = Object.values(newUpdate);
+
+        this.setState({
+            [key[0]]: [...this.state.players, value[0]],
         });
     };
 
@@ -36,10 +53,16 @@ class GameContextProvider extends Component {
         });
     };
 
+    updateGameId = (e) => {
+        this.setState({
+            game_id: e.target.value,
+        });
+    };
+
     displayErrors = () => {
         if (
             this.state.errorMessage !== null ||
-            this.state.errorMessage !== [""]
+            this.state.errorMessage !== ['']
         ) {
             return this.state.errorMessage.map((message) => {
                 return <p>{message}</p>;
@@ -90,6 +113,8 @@ class GameContextProvider extends Component {
                     updateQuestionErrors: this.updateQuestionErrors,
                     clearQuestionErrors: this.clearQuestionErrors,
                     updateContext: this.updateContext,
+                    updatePlayersContext: this.updatePlayersContext,
+                    updateGameId: this.updateGameId,
                 }}
             >
                 {this.props.children}

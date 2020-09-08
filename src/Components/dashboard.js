@@ -9,7 +9,47 @@ import { GameContext } from "../game-context";
 class Dashboard extends React.Component {
     state = {
         scoreboardVisible: false,
+        wildCardActive: false,
     };
+
+    getWildCard() {
+        fetch(
+            `http://localhost:8000/active-wild-card/${localStorage.getItem(
+                "game_id"
+            )}`
+        )
+            .then((wildCardData) => wildCardData.json())
+            .then((wildCard) => {
+                if (wildCard[0].active_wild_card !== null) {
+                    this.setState({
+                        wildCardActive: true,
+                    });
+                } else {
+                    this.setState({
+                        wildCardActive: false,
+                    });
+                }
+            });
+    }
+
+    componentDidMount() {
+        const checkForUpdate = () => {
+            setInterval(() => this.getWildCard(), 3000);
+        };
+
+        checkForUpdate();
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.getWildCard);
+    }
+
+    displayWildCard() {
+        if (this.state.wildCardActive === true) {
+            return <Wildcard />;
+        }
+    }
+
     render() {
         return (
             <GameContext.Consumer>
@@ -27,7 +67,7 @@ class Dashboard extends React.Component {
                     };
                     return (
                         <div className="dashboard">
-                            <Scoreboard />
+                            <Scoreboard context={context} />
                             <ScoreboardMobile
                                 scoreboardVisible={this.state.scoreboardVisible}
                             />
@@ -40,8 +80,8 @@ class Dashboard extends React.Component {
                                     : "Show Scoreboard"}
                             </button>
                             <ClaimButton />
-                            <CardWindow />
-                            <Wildcard />
+                            <CardWindow context={context} />
+                            {this.displayWildCard()}
                         </div>
                     );
                 }}
