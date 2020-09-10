@@ -18,6 +18,7 @@ export default class QuestionsPage extends React.Component {
                     const sessionName = context.sessionName;
                     const gameInputs = { mainPlayerName, sessionName };
                     const game_id = this.state.game_id;
+                    const returnInputs = { mainPlayerName, game_id };
 
                     function startGame(e) {
                         e.preventDefault();
@@ -63,18 +64,26 @@ export default class QuestionsPage extends React.Component {
                                         'player_status',
                                         player_status
                                     );
+                                    localStorage.setItem('round', 1);
+                                    localStorage.setItem(
+                                        'response_chosen',
+                                        false
+                                    );
                                     return game_id;
                                 })
-                                .then((game_id) =>
+                                .then((game_id) => {
+                                    context.updateContext({ game_id: game_id });
                                     route.push(
                                         '/game/' + sessionName + '/' + game_id
-                                    )
-                                );
+                                    );
+                                });
                         }
                     }
 
                     function goToGame(e) {
-                        for (const [key, value] of Object.entries(gameInputs)) {
+                        for (const [key, value] of Object.entries(
+                            returnInputs
+                        )) {
                             if (value === null || value === '') {
                                 context.updateQuestionErrors(
                                     `${key} is missing and is required.`
@@ -87,17 +96,13 @@ export default class QuestionsPage extends React.Component {
                         if (mainPlayerName !== '' && game_id !== '') {
                             GameApiService.getGame(game_id)
                                 .then((res) => {
-                                    const {
-                                        id,
-                                        game_status,
-                                        round,
-                                        number_of_players,
-                                        game_name,
-                                        active_card,
-                                        active_wild_card,
-                                        cards_played,
-                                        current_judge,
-                                    } = res[0];
+                                    const { id, round, game_name } = res[0];
+
+                                    gameUpdate.sessionName = game_name;
+
+                                    context.updateContext({
+                                        sessionName: game_name,
+                                    });
 
                                     GameApiService.getPlayers(id)
                                         .then((res) => {
@@ -126,6 +131,14 @@ export default class QuestionsPage extends React.Component {
                                                         'player_status',
                                                         player_status
                                                     );
+                                                    localStorage.setItem(
+                                                        'round',
+                                                        round
+                                                    );
+                                                    localStorage.setItem(
+                                                        'response_chosen',
+                                                        false
+                                                    );
                                                 });
                                             } else {
                                                 GameApiService.getPlayers(
@@ -147,6 +160,14 @@ export default class QuestionsPage extends React.Component {
                                                             'player_status',
                                                             res[0].player_status
                                                         );
+                                                        localStorage.setItem(
+                                                            'round',
+                                                            round
+                                                        );
+                                                        localStorage.setItem(
+                                                            'response_chosen',
+                                                            false
+                                                        );
                                                     })
                                                     .then(() => {
                                                         const judge = res.filter(
@@ -158,15 +179,15 @@ export default class QuestionsPage extends React.Component {
                                                             judge[0].id;
                                                         gameUpdate.sessionName = game_name;
                                                     })
-                                                    .then(() =>
+                                                    .then(() => {
                                                         context.updateContext({
                                                             current_judge:
                                                                 gameUpdate.current_judge,
-                                                        })
-                                                    )
-                                                    .then(() =>
-                                                        console.log(context)
-                                                    );
+                                                        });
+                                                        context.updateContext({
+                                                            game_id: game_id,
+                                                        });
+                                                    });
                                             }
                                         })
                                         .then((player) => {
@@ -243,15 +264,10 @@ export default class QuestionsPage extends React.Component {
                                 type="submit"
                                 className="submit"
                                 onClick={(e) => {
-                                    {
-                                        if (context.newGame === false) {
-                                            e.preventDefault();
-                                            goToGame(this.state.game_id);
-                                        } else {
-                                            e.preventDefault();
-                                            startGame(e);
-                                        }
-                                    }
+                                    e.preventDefault();
+                                    context.newGame === false
+                                        ? goToGame(this.state.game_id)
+                                        : startGame(e);
                                 }}
                             >
                                 Submit

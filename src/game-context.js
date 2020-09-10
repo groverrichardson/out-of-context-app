@@ -29,7 +29,6 @@ class GameContextProvider extends Component {
         this.setState({
             [key[0]]: value[0],
         });
-        console.log(this.state);
     };
 
     updatePlayersContext = (newUpdate) => {

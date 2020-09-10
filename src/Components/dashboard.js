@@ -1,54 +1,14 @@
-import React from "react";
-import Scoreboard from "../Components/scoreboard";
-import ClaimButton from "../Components/claim-button";
-import CardWindow from "../Components/card-window";
-import Wildcard from "../Components/wildcard";
-import ScoreboardMobile from "../Components/scoreboard-mobile";
-import { GameContext } from "../game-context";
+import React from 'react';
+import Scoreboard from '../Components/scoreboard';
+import ClaimButton from '../Components/claim-button';
+import CardWindow from '../Components/card-window';
+import ScoreboardMobile from '../Components/scoreboard-mobile';
+import { GameContext } from '../game-context';
 
 class Dashboard extends React.Component {
     state = {
         scoreboardVisible: false,
-        wildCardActive: false,
     };
-
-    getWildCard() {
-        fetch(
-            `http://localhost:8000/active-wild-card/${localStorage.getItem(
-                "game_id"
-            )}`
-        )
-            .then((wildCardData) => wildCardData.json())
-            .then((wildCard) => {
-                if (wildCard[0].active_wild_card !== null) {
-                    this.setState({
-                        wildCardActive: true,
-                    });
-                } else {
-                    this.setState({
-                        wildCardActive: false,
-                    });
-                }
-            });
-    }
-
-    componentDidMount() {
-        const checkForUpdate = () => {
-            setInterval(() => this.getWildCard(), 3000);
-        };
-
-        checkForUpdate();
-    }
-
-    componentWillUnmount() {
-        clearInterval(this.getWildCard);
-    }
-
-    displayWildCard() {
-        if (this.state.wildCardActive === true) {
-            return <Wildcard />;
-        }
-    }
 
     render() {
         return (
@@ -76,12 +36,11 @@ class Dashboard extends React.Component {
                                 onClick={toggleScoreboard}
                             >
                                 {this.state.scoreboardVisible
-                                    ? "Hide Scoreboard"
-                                    : "Show Scoreboard"}
+                                    ? 'Hide Scoreboard'
+                                    : 'Show Scoreboard'}
                             </button>
                             <ClaimButton />
                             <CardWindow context={context} />
-                            {this.displayWildCard()}
                         </div>
                     );
                 }}

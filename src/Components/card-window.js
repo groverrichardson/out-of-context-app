@@ -1,6 +1,7 @@
-import React from "react";
-import Card from "../Components/card";
-import { GameContext } from "../game-context";
+import React from 'react';
+import Card from '../Components/card';
+import { GameContext } from '../game-context';
+import GameApiService from '../services/game_api_service';
 
 class CardWindow extends React.Component {
     constructor(props) {
@@ -9,27 +10,18 @@ class CardWindow extends React.Component {
         this.state = {
             threadCount: null,
             messageCount: null,
+            game_id: window.location.pathname.split('/')[3],
         };
     }
 
     componentDidMount() {
-        fetch(
-            `http://localhost:8000/active-card/${localStorage.getItem(
-                "game_id"
-            )}`
-        )
-            .then((cardData) => cardData.json())
-            .then((cardData) =>
-                fetch(
-                    `http://localhost:8000/card/${cardData[0].active_card}`
-                ).then((cardInfo) =>
-                    cardInfo.json().then((cardInfo) =>
-                        this.setState({
-                            threadCount: cardInfo[0].thread_count,
-                            messageCount: cardInfo[0].card_count,
-                        })
-                    )
-                )
+        GameApiService.getActiveCard()
+            .then((res) => GameApiService.getCardInfo(res))
+            .then((cardInfo) =>
+                this.setState({
+                    threadCount: cardInfo[0].thread_count,
+                    messageCount: cardInfo[0].card_count,
+                })
             );
     }
 
@@ -55,7 +47,6 @@ class CardWindow extends React.Component {
                                     {this.displayThreadCount()}
                                     {this.displayMessageCount()}
                                 </div>
-                                <p className="timer">30 Seconds Left</p>
                             </div>
                         </div>
                     );

@@ -1,5 +1,6 @@
-import React from "react";
-import { GameContext } from "../game-context";
+import React from 'react';
+import { GameContext } from '../game-context';
+import GameApiService from '../services/game_api_service';
 
 export default class Card extends React.Component {
     constructor(props) {
@@ -7,32 +8,56 @@ export default class Card extends React.Component {
 
         this.state = {
             card: {
-                cardCopy: "",
-                thread: "",
-                message: "",
+                cardCopy: '',
             },
+            game_id: window.location.pathname.split('/')[3],
+            judge: '',
+            judgeId: '',
         };
     }
 
     componentDidMount() {
-        fetch(
-            `http://localhost:8000/dashboard?game_id=${localStorage.getItem(
-                "game_id"
-            )}`
-        )
-            .then((gameData) => gameData.json())
-            .then((gameData) =>
-                fetch(`http://localhost:8000/card/${gameData.active_card}`)
-            )
-            .then((cardData) => cardData.json())
+        GameApiService.getActiveCard()
+            .then((card_id) => GameApiService.getCardInfo(card_id))
             .then((cardData) => {
                 this.setState({
                     card: {
                         cardCopy: cardData[0].card_copy,
-                        thread: cardData[0].thread_count,
-                        message: cardData[0].card_count,
                     },
                 });
+            });
+
+        const checkForUpdate = () => {
+            setInterval(() => {
+                this.getPlayers();
+            }, 3000);
+        };
+
+        checkForUpdate();
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.getPlayers);
+    }
+
+    getPlayers() {
+        GameApiService.getPlayers(window.location.pathname.split('/')[3])
+            .then((players) =>
+                players.filter((player) => player.player_status === 'Judge')
+            )
+            .then((judge) => {
+                this.setState({
+                    judge: judge[0].player_name,
+                    judgeId: judge[0].id,
+                });
+                return this.state.judgeId;
+            })
+            .then((id) => {
+                if (parseInt(localStorage.getItem('player_id')) === id) {
+                    localStorage.setItem('player_status', 'Judge');
+                } else {
+                    localStorage.setItem('player_status', 'Player');
+                }
             });
     }
 
@@ -45,8 +70,12 @@ export default class Card extends React.Component {
             <GameContext.Consumer>
                 {(context) => {
                     const updateTurn = () => {
-                        if (context.activeView === "Player") {
-                            return <p className="turn-text">John Doe's Turn</p>;
+                        if (context.activeView === 'Player') {
+                            return (
+                                <p className="turn-text">
+                                    {this.state.judge}'s Turn
+                                </p>
+                            );
                         } else {
                             return <p className="turn-text">Your Turn</p>;
                         }
