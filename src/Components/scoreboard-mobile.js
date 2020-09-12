@@ -13,7 +13,9 @@ export default class Scoreboard extends React.Component {
     }
 
     getPlayers() {
-        fetch(`http://localhost:8000/players?game_id=${this.state.game_id}`)
+        fetch(
+            `https://quiet-journey-02794.herokuapp.com/players?game_id=${this.state.game_id}`
+        )
             .then((results) => results.json())
             .then((data) => {
                 this.setState({

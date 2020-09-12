@@ -5,7 +5,7 @@ const GameApiService = {
             headers: { 'Content-Type': 'application/json' },
         };
         return fetch(
-            `http://localhost:8000/create-game?game_status=${game_status}&game_name=${game_name}&player_name=${player_name}`,
+            `https://quiet-journey-02794.herokuapp.com/create-game?game_status=${game_status}&game_name=${game_name}&player_name=${player_name}`,
             createGameOptions
         ).then((res) => {
             return res.json();
@@ -18,7 +18,7 @@ const GameApiService = {
             headers: { 'Content-Type': 'application/json' },
         };
         return fetch(
-            `http://localhost:8000/game?id=${game_id}`,
+            `https://quiet-journey-02794.herokuapp.com/game?id=${game_id}`,
             createGameOptions
         ).then((res) => {
             return res.json();
@@ -31,7 +31,7 @@ const GameApiService = {
             headers: { 'Content-Type': 'application/json' },
         };
         return fetch(
-            `http://localhost:8000/players?game_id=${game_id}`,
+            `https://quiet-journey-02794.herokuapp.com/players?game_id=${game_id}`,
             createOptions
         ).then((res) => {
             return res.json();
@@ -44,7 +44,7 @@ const GameApiService = {
             headers: { 'Content-Type': 'application/json' },
         };
         return fetch(
-            `http://localhost:8000/players?player_name=${player_name}&points=0&player_status=Player&game_id=${game_id}`,
+            `https://quiet-journey-02794.herokuapp.com/players?player_name=${player_name}&points=0&player_status=Player&game_id=${game_id}`,
             createOptions
         ).then((res) => {
             return res.json();
@@ -57,7 +57,7 @@ const GameApiService = {
             headers: { 'Content-Type': 'application/json' },
         };
         return fetch(
-            `http://localhost:8000/active-card/${
+            `https://quiet-journey-02794.herokuapp.com/active-card/${
                 window.location.pathname.split('/')[3]
             }`,
             Options
@@ -75,11 +75,12 @@ const GameApiService = {
             method: 'GET',
             headers: { 'Content-Type': 'application/json' },
         };
-        return fetch(`http://localhost:8000/card/${card_id}`, Options).then(
-            (cardInfo) => {
-                return cardInfo.json();
-            }
-        );
+        return fetch(
+            `https://quiet-journey-02794.herokuapp.com/card/${card_id}`,
+            Options
+        ).then((cardInfo) => {
+            return cardInfo.json();
+        });
     },
 
     addAnswer(round, game_id, player_id, answer) {
@@ -88,7 +89,7 @@ const GameApiService = {
             headers: { 'Content-Type': 'application/json' },
         };
         return fetch(
-            `http://localhost:8000/answers?round=${round}&game_id=${game_id}&player_id=${player_id}&answer=${answer}`,
+            `https://quiet-journey-02794.herokuapp.com/answers?round=${round}&game_id=${game_id}&player_id=${player_id}&answer=${answer}`,
             Options
         ).then((res) => {
             return res.json();
@@ -101,7 +102,7 @@ const GameApiService = {
             headers: { 'Content-Type': 'application/json' },
         };
         return fetch(
-            `http://localhost:8000/answers?round=${round}&game_id=${game_id}`,
+            `https://quiet-journey-02794.herokuapp.com/answers?round=${round}&game_id=${game_id}`,
             Options
         ).then((res) => {
             return res.json();
@@ -114,7 +115,7 @@ const GameApiService = {
             headers: { 'Content-Type': 'application/json' },
         };
         return fetch(
-            `http://localhost:8000/players/${player_id}?points=${points}`,
+            `https://quiet-journey-02794.herokuapp.com/players/${player_id}?points=${points}`,
             Options
         ).then((res) => {
             return res.json();
@@ -127,7 +128,7 @@ const GameApiService = {
             headers: { 'Content-Type': 'application/json' },
         };
         return fetch(
-            `http://localhost:8000/game/${game_id}?round=${round}`,
+            `https://quiet-journey-02794.herokuapp.com/game/${game_id}?round=${round}`,
             Options
         ).then((res) => {
             return res.json();
@@ -140,7 +141,7 @@ const GameApiService = {
             headers: { 'Content-Type': 'application/json' },
         };
         return fetch(
-            `http://localhost:8000/game/${game_id}?active_card=${active_card}`,
+            `https://quiet-journey-02794.herokuapp.com/game/${game_id}?active_card=${active_card}`,
             Options
         ).then((res) => {
             return res.json();
@@ -153,7 +154,7 @@ const GameApiService = {
             headers: { 'Content-Type': 'application/json' },
         };
         return fetch(
-            `http://localhost:8000/players/${player_id}?player_status=${player_status}`,
+            `https://quiet-journey-02794.herokuapp.com/players/${player_id}?player_status=${player_status}`,
             Options
         ).then((res) => {
             return res.json();
@@ -165,7 +166,10 @@ const GameApiService = {
             method: 'GET',
             headers: { 'Content-Type': 'application/json' },
         };
-        return fetch(`http://localhost:8000/card`, Options).then((res) => {
+        return fetch(
+            `https://quiet-journey-02794.herokuapp.com/card`,
+            Options
+        ).then((res) => {
             return res.json();
         });
     },
@@ -175,7 +179,10 @@ const GameApiService = {
             method: 'GET',
             headers: { 'Content-Type': 'application/json' },
         };
-        return fetch(`http://localhost:8000/game?id=${game_id}`, Options)
+        return fetch(
+            `https://quiet-journey-02794.herokuapp.com/game?id=${game_id}`,
+            Options
+        )
             .then((res) => {
                 return res.json();
             })
@@ -190,7 +197,7 @@ const GameApiService = {
             headers: { 'Content-Type': 'application/json' },
         };
         return fetch(
-            `http://localhost:8000/game/${game_id}?cards_played=${cards_played}`,
+            `https://quiet-journey-02794.herokuapp.com/game/${game_id}?cards_played=${cards_played}`,
             Options
         ).then((res) => {
             return res.json();
