@@ -29,6 +29,7 @@ class Dashboard extends React.Component {
                         <div className="dashboard">
                             <Scoreboard context={context} />
                             <ScoreboardMobile
+                                context={context}
                                 scoreboardVisible={this.state.scoreboardVisible}
                             />
                             <button
