@@ -134,6 +134,19 @@ const GameApiService = {
         });
     },
 
+    updateActiveCard(game_id, active_card) {
+        const Options = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+        };
+        return fetch(
+            `http://localhost:8000/game/${game_id}?active_card=${active_card}`,
+            Options
+        ).then((res) => {
+            return res.json();
+        });
+    },
+
     updatePlayerStatus(player_id, player_status) {
         const Options = {
             method: 'POST',
@@ -141,6 +154,43 @@ const GameApiService = {
         };
         return fetch(
             `http://localhost:8000/players/${player_id}?player_status=${player_status}`,
+            Options
+        ).then((res) => {
+            return res.json();
+        });
+    },
+
+    getAllCards() {
+        const Options = {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json' },
+        };
+        return fetch(`http://localhost:8000/card`, Options).then((res) => {
+            return res.json();
+        });
+    },
+
+    getCardsPlayed(game_id) {
+        const Options = {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json' },
+        };
+        return fetch(`http://localhost:8000/game?id=${game_id}`, Options)
+            .then((res) => {
+                return res.json();
+            })
+            .then((res) => {
+                return res[0].cards_played;
+            });
+    },
+
+    updateCardsPlayed(game_id, cards_played) {
+        const Options = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+        };
+        return fetch(
+            `http://localhost:8000/game/${game_id}?cards_played=${cards_played}`,
             Options
         ).then((res) => {
             return res.json();

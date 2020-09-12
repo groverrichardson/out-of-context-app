@@ -17,19 +17,10 @@ export default class Card extends React.Component {
     }
 
     componentDidMount() {
-        GameApiService.getActiveCard()
-            .then((card_id) => GameApiService.getCardInfo(card_id))
-            .then((cardData) => {
-                this.setState({
-                    card: {
-                        cardCopy: cardData[0].card_copy,
-                    },
-                });
-            });
-
         const checkForUpdate = () => {
             setInterval(() => {
                 this.getPlayers();
+                this.getActiveCard();
             }, 3000);
         };
 
@@ -38,6 +29,20 @@ export default class Card extends React.Component {
 
     componentWillUnmount() {
         clearInterval(this.getPlayers);
+        clearInterval(this.getActiveCard);
+    }
+
+    getActiveCard() {
+        GameApiService.getActiveCard().then((card_id) => {
+            localStorage.setItem('active_card', card_id);
+            GameApiService.getCardInfo(card_id).then((cardData) => {
+                this.setState({
+                    card: {
+                        cardCopy: cardData[0].card_copy,
+                    },
+                });
+            });
+        });
     }
 
     getPlayers() {

@@ -11,10 +11,12 @@ export default class Responses extends React.Component {
             responses: [],
             hover: '',
             response_chosen: false,
+            active_card: localStorage.getItem('active_card'),
         };
     }
 
     componentDidMount() {
+        console.log(localStorage.getItem('active_card'));
         const checkForUpdate = () => {
             setInterval(() => this.getAnswers(), 3000);
         };
@@ -79,32 +81,90 @@ export default class Responses extends React.Component {
         const nextRound = (
             parseInt(localStorage.getItem('round')) + 1
         ).toString();
-        GameApiService.updateGame(this.state.game_id, nextRound);
 
-        GameApiService.getPlayers(this.state.game_id).then((players) => {
-            const currentJudgeIndex = players.indexOf(
-                players.filter((player) => player.player_status === 'Judge')[0]
+        this.pickNewCard();
+        GameApiService.getPlayers(this.state.game_id)
+            .then((players) => {
+                const currentJudgeIndex = players.indexOf(
+                    players.filter(
+                        (player) => player.player_status === 'Judge'
+                    )[0]
+                );
+                if (currentJudgeIndex === players.length - 1) {
+                    players.forEach((player) => {
+                        if (players.indexOf(player) === 0) {
+                            GameApiService.updatePlayerStatus(
+                                player.id,
+                                'Judge'
+                            );
+                        } else {
+                            GameApiService.updatePlayerStatus(
+                                player.id,
+                                'Player'
+                            );
+                        }
+                    });
+                } else {
+                    players.forEach((player, i) => {
+                        if (
+                            currentJudgeIndex !== i &&
+                            i === currentJudgeIndex + 1
+                        ) {
+                            GameApiService.updatePlayerStatus(
+                                player.id,
+                                'Judge'
+                            );
+                        } else {
+                            GameApiService.updatePlayerStatus(
+                                player.id,
+                                'Player'
+                            );
+                        }
+                    });
+                }
+            })
+            .then(() => {
+                GameApiService.updateGame(this.state.game_id, nextRound);
+                localStorage.setItem('round', nextRound);
+            });
+    }
+
+    pickNewCard() {
+        GameApiService.getAllCards().then((cards) => {
+            let cardsLength = cards.length;
+            let randomNumber = Math.floor(
+                Math.random() * Math.floor(cardsLength) + 1
             );
-            if (currentJudgeIndex === players.length - 1) {
-                players.forEach((player) => {
-                    if (players.indexOf(player) === 0) {
-                        GameApiService.updatePlayerStatus(player.id, 'Judge');
-                    } else {
-                        GameApiService.updatePlayerStatus(player.id, 'Player');
+            let cardPicked = false;
+
+            GameApiService.getCardsPlayed(this.state.game_id).then(
+                (cardsPlayed) => {
+                    let filteredCards = () =>
+                        cardsPlayed.filter((card) => card === randomNumber);
+
+                    let matchedCards = filteredCards();
+
+                    while (cardPicked === false) {
+                        if (matchedCards.length === 0) {
+                            GameApiService.updateCardsPlayed(
+                                this.state.game_id,
+                                this.state.active_card
+                            );
+                            GameApiService.updateActiveCard(
+                                this.state.game_id,
+                                randomNumber
+                            );
+                            cardPicked = true;
+                            localStorage.setItem('active_card', randomNumber);
+                        } else {
+                            randomNumber = Math.floor(
+                                Math.random() * Math.floor(cardsLength) + 1
+                            );
+                            matchedCards = filteredCards();
+                        }
                     }
-                });
-            } else {
-                players.forEach((player, i) => {
-                    if (
-                        currentJudgeIndex !== i &&
-                        i === currentJudgeIndex + 1
-                    ) {
-                        GameApiService.updatePlayerStatus(player.id, 'Judge');
-                    } else {
-                        GameApiService.updatePlayerStatus(player.id, 'Player');
-                    }
-                });
-            }
+                }
+            );
         });
     }
 
