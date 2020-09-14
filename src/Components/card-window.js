@@ -20,7 +20,7 @@ class CardWindow extends React.Component {
             .then((cardInfo) =>
                 this.setState({
                     threadCount: cardInfo[0].thread_count,
-                    messageCount: cardInfo[0].card_count,
+                    messageCount: cardInfo[0].message_count,
                 })
             );
     }

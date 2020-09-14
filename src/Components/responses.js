@@ -16,7 +16,6 @@ export default class Responses extends React.Component {
     }
 
     componentDidMount() {
-        console.log(localStorage.getItem('active_card'));
         const checkForUpdate = () => {
             setInterval(() => this.getAnswers(), 3000);
         };
@@ -139,6 +138,7 @@ export default class Responses extends React.Component {
 
             GameApiService.getCardsPlayed(this.state.game_id).then(
                 (cardsPlayed) => {
+                    console.log(cardsPlayed);
                     let filteredCards = () =>
                         cardsPlayed.filter((card) => card === randomNumber);
 

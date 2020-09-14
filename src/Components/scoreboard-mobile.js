@@ -2,6 +2,7 @@ import React from 'react';
 import EditButton from '../Components/edit-button';
 import { GameContext } from '../game-context';
 import GameApiService from '../services/game_api_service';
+import config from '../config';
 
 export default class Scoreboard extends React.Component {
     constructor(props) {
@@ -13,9 +14,7 @@ export default class Scoreboard extends React.Component {
     }
 
     getPlayers() {
-        fetch(
-            `https://quiet-journey-02794.herokuapp.com/players?game_id=${this.state.game_id}`
-        )
+        fetch(`${config.API_ENDPOINT}/players?game_id=${this.state.game_id}`)
             .then((results) => results.json())
             .then((data) => {
                 this.setState({

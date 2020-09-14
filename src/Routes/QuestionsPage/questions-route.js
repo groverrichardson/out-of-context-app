@@ -22,6 +22,7 @@ export default class QuestionsPage extends React.Component {
 
                     function startGame(e) {
                         e.preventDefault();
+
                         for (const [key, value] of Object.entries(gameInputs)) {
                             if (value === null || value === '') {
                                 context.updateQuestionErrors(
