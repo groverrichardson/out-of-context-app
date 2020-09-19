@@ -1,40 +1,26 @@
 import React from 'react';
 import Card from '../Components/card';
 import { GameContext } from '../game-context';
-import GameApiService from '../services/game_api_service';
 
 class CardWindow extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            threadCount: null,
-            messageCount: null,
-            game_id: window.location.pathname.split('/')[3],
-        };
-    }
-
-    componentDidMount() {
-        GameApiService.getActiveCard()
-            .then((res) => GameApiService.getCardInfo(res))
-            .then((cardInfo) =>
-                this.setState({
-                    threadCount: cardInfo[0].thread_count,
-                    messageCount: cardInfo[0].message_count,
-                })
-            );
-    }
-
     displayThreadCount() {
-        return <p className="thread-count">Thread: {this.state.threadCount}</p>;
+        if (this.props.context.active_card) {
+            return (
+                <p className="thread-count">
+                    Thread: {this.props.context.active_card.thread_count}
+                </p>
+            );
+        }
     }
-
     displayMessageCount() {
-        return (
-            <p className="message-count">Message: {this.state.messageCount}</p>
-        );
+        if (this.props.context.active_card) {
+            return (
+                <p className="message-count">
+                    Message: {this.props.context.active_card.message_count}
+                </p>
+            );
+        }
     }
-
     render() {
         return (
             <GameContext.Consumer>

@@ -33,7 +33,7 @@ export default class QuestionsPage extends React.Component {
                         if (mainPlayerName !== '' && sessionName !== '') {
                             GameApiService.createGame(
                                 route,
-                                'Active',
+                                'Not Active',
                                 sessionName,
                                 mainPlayerName
                             )

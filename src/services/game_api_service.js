@@ -136,6 +136,19 @@ const GameApiService = {
         });
     },
 
+    updateGameStatus(game_id, game_status) {
+        const Options = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+        };
+        return fetch(
+            `${config.API_ENDPOINT}/game/${game_id}?game_status=${game_status}`,
+            Options
+        ).then((res) => {
+            return res.json();
+        });
+    },
+
     updateActiveCard(game_id, active_card) {
         const Options = {
             method: 'POST',
@@ -191,6 +204,32 @@ const GameApiService = {
         };
         return fetch(
             `${config.API_ENDPOINT}/game/${game_id}?cards_played=${cards_played}`,
+            Options
+        ).then((res) => {
+            return res.json();
+        });
+    },
+
+    getDashboard(game_id) {
+        const Options = {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json' },
+        };
+        return fetch(
+            `${config.API_ENDPOINT}/dashboard?game_id=${game_id}`,
+            Options
+        ).then((res) => {
+            return res.json();
+        });
+    },
+
+    getResponses(round, game_id) {
+        const Options = {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json' },
+        };
+        return fetch(
+            `${config.API_ENDPOINT}/answers?game_id=${game_id}&round=${round}`,
             Options
         ).then((res) => {
             return res.json();

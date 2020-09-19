@@ -3,6 +3,7 @@ import Dashboard from '../../Components/dashboard';
 import ResponseSection from '../../Components/response-section-judge';
 import ResponseSectionPlayer from '../../Components/response-section-player';
 import { GameContext } from '../../game-context';
+import GameApiService from '../../services/game_api_service';
 // import { Link } from "react-router-dom";
 
 export default class GamePage extends React.Component {
@@ -14,10 +15,6 @@ export default class GamePage extends React.Component {
         return (
             <GameContext.Consumer>
                 {(context) => {
-                    const toggleScoreboard = () => {
-                        const prevState = context;
-                        context.updateScoreboardVisible(prevState);
-                    };
                     const displayView = () => {
                         if (
                             localStorage.getItem('player_status') === 'Player'
@@ -27,16 +24,61 @@ export default class GamePage extends React.Component {
                             return <ResponseSection />;
                         }
                     };
+
+                    const displayPlayers = (players) => {
+                        const playersList = players.map((player, i) => {
+                            return (
+                                <div key={i} className="player-container">
+                                    <p className="player-name">
+                                        {player.player_name}
+                                    </p>
+                                </div>
+                            );
+                        });
+                        return <div>{playersList}</div>;
+                    };
+
+                    const startGame = () => {
+                        let game_id = context.game_id;
+
+                        GameApiService.updateGameStatus(game_id, 'Active');
+                    };
+
                     return (
-                        <div className="game-page-container">
-                            <div className="main-container">
-                                <Dashboard
-                                    state={context}
-                                    toggleScoreboard={toggleScoreboard}
-                                />
-                                {displayView()}
-                            </div>
-                            <div className="player-responses"></div>
+                        <div className="page-container">
+                            {context.gameActive === 'Active' ? (
+                                <div className="game-page-container">
+                                    <div className="main-container">
+                                        <h2 className="session-id-header">
+                                            Invite your friends!
+                                        </h2>
+                                        <p className="session-id">
+                                            Your session ID is:{' '}
+                                            {
+                                                window.location.pathname.split(
+                                                    '/'
+                                                )[3]
+                                            }
+                                        </p>
+                                        <Dashboard state={context} />
+                                        {displayView()}
+                                    </div>
+                                    <div className="player-responses"></div>
+                                </div>
+                            ) : (
+                                <section className="waiting-section">
+                                    <h2 className="waiting-header">
+                                        Players in the Waiting Room
+                                    </h2>
+                                    {displayPlayers(context.players)}
+                                    <button
+                                        className="start-game"
+                                        onClick={startGame}
+                                    >
+                                        Start Game
+                                    </button>
+                                </section>
+                            )}
                         </div>
                     );
                 }}

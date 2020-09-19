@@ -1,26 +1,11 @@
 import React from 'react';
 import { GameContext } from '../game-context';
-import GameApiService from '../services/game_api_service';
 
 export default class Card extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            card: {
-                cardCopy: '',
-            },
-            game_id: window.location.pathname.split('/')[3],
-            judge: '',
-            judgeId: '',
-        };
-    }
-
     componentDidMount() {
         const checkForUpdate = () => {
             setInterval(() => {
-                this.getPlayers();
-                this.getActiveCard();
+                this.setLocalStorage();
             }, 3000);
         };
 
@@ -28,46 +13,37 @@ export default class Card extends React.Component {
     }
 
     componentWillUnmount() {
-        clearInterval(this.getPlayers);
-        clearInterval(this.getActiveCard);
+        clearInterval(this.setLocalStorage);
     }
 
-    getActiveCard() {
-        GameApiService.getActiveCard().then((card_id) => {
-            localStorage.setItem('active_card', card_id);
-            GameApiService.getCardInfo(card_id).then((cardData) => {
-                this.setState({
-                    card: {
-                        cardCopy: cardData[0].card_copy,
-                    },
-                });
-            });
-        });
-    }
-
-    getPlayers() {
-        GameApiService.getPlayers(window.location.pathname.split('/')[3])
-            .then((players) =>
-                players.filter((player) => player.player_status === 'Judge')
-            )
-            .then((judge) => {
-                this.setState({
-                    judge: judge[0].player_name,
-                    judgeId: judge[0].id,
-                });
-                return this.state.judgeId;
-            })
-            .then((id) => {
-                if (parseInt(localStorage.getItem('player_id')) === id) {
-                    localStorage.setItem('player_status', 'Judge');
-                } else {
-                    localStorage.setItem('player_status', 'Player');
-                }
-            });
+    setLocalStorage() {
+        if (this.props.context.current_judge) {
+            if (
+                parseInt(localStorage.getItem('player_id')) ===
+                this.props.context.current_judge[0].id
+            ) {
+                localStorage.setItem('player_status', 'Judge');
+            } else {
+                localStorage.setItem('player_status', 'Player');
+            }
+        }
     }
 
     displayCardText() {
-        return <p className="card-text">{this.state.card.cardCopy}</p>;
+        if (this.props.context.active_card) {
+            return (
+                <p className="card-text">
+                    {this.props.context.active_card.card_copy}
+                </p>
+            );
+        }
+    }
+
+    displayJudgeName() {
+        let judge = this.props.context.current_judge[0];
+        if (judge) {
+            return <p className="turn-text">{judge.player_name}'s Turn</p>;
+        }
     }
 
     render() {
@@ -76,11 +52,7 @@ export default class Card extends React.Component {
                 {(context) => {
                     const updateTurn = () => {
                         if (context.activeView === 'Player') {
-                            return (
-                                <p className="turn-text">
-                                    {this.state.judge}'s Turn
-                                </p>
-                            );
+                            return this.displayJudgeName();
                         } else {
                             return <p className="turn-text">Your Turn</p>;
                         }
