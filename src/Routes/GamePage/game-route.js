@@ -7,9 +7,32 @@ import GameApiService from '../../services/game_api_service';
 // import { Link } from "react-router-dom";
 
 export default class GamePage extends React.Component {
+    _isMounted = true;
     state = {
         activeView: 'Player',
+        update: 0,
     };
+
+    componentDidMount() {
+        this._isMounted = true;
+        const checkForUpdate = () => {
+            setInterval(() => this.forceRender(), 3000);
+        };
+        checkForUpdate();
+    }
+
+    forceRender() {
+        if (this._isMounted === true) {
+            this.setState({
+                update: this.state.update + 1,
+            });
+        }
+    }
+
+    componentWillUnmount() {
+        this._isMounted = false;
+        clearInterval(this.forceRender);
+    }
 
     render() {
         return (
