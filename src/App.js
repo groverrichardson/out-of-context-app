@@ -16,7 +16,7 @@ export default class App extends Component {
                 <Switch>
                     <Route exact path="/" component={LandingPage} />
                     <Route path="/questions" component={QuestionsPage} />
-                    <Route path="/game/:gameName/" component={GamePage} />
+                    <Route path="/game/" component={GamePage} />
                     <Route path="/waiting-room" component={WaitingPage} />
                     <Route component={NotFoundPage} />
                 </Switch>

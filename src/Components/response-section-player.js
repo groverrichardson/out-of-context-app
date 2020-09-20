@@ -6,7 +6,6 @@ export default class ResponseSectionPlayer extends React.Component {
         super(props);
         this.state = {
             answer: '',
-            answerSubmitted: false,
         };
     }
 
@@ -18,12 +17,12 @@ export default class ResponseSectionPlayer extends React.Component {
         };
 
         const round = localStorage.getItem('round');
-        const game_id = window.location.pathname.split('/')[3];
+        const game_id = window.location.pathname.split('/')[2];
         const player_id = localStorage.getItem('player_id');
 
         return (
             <div className="player-view">
-                {this.state.answerSubmitted === false ? (
+                {this.props.context.answerSubmitted === "false" ? (
                     <div className="answer-submit">
                         <h3 className="answer-submit-header">
                             Submit your response
@@ -44,9 +43,11 @@ export default class ResponseSectionPlayer extends React.Component {
                                     player_id,
                                     this.state.answer
                                 );
-                                this.setState({
-                                    answerSubmitted: true,
-                                });
+                                GameApiService.updatePlayerStatus(
+                                    player_id,
+                                    'Player',
+                                    "true"
+                                );
                             }}
                         >
                             Submit Answer

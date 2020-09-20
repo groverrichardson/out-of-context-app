@@ -15,8 +15,7 @@ export default class QuestionsPage extends React.Component {
                 {(context) => {
                     const route = this.props.history;
                     const mainPlayerName = context.mainPlayerName;
-                    const sessionName = context.sessionName;
-                    const gameInputs = { mainPlayerName, sessionName };
+                    const gameInputs = { mainPlayerName };
                     const game_id = this.state.game_id;
                     const returnInputs = { mainPlayerName, game_id };
 
@@ -30,11 +29,10 @@ export default class QuestionsPage extends React.Component {
                                 );
                             }
                         }
-                        if (mainPlayerName !== '' && sessionName !== '') {
+                        if (mainPlayerName !== '') {
                             GameApiService.createGame(
                                 route,
                                 'Not Active',
-                                sessionName,
                                 mainPlayerName
                             )
                                 .then((res) => {
@@ -74,14 +72,18 @@ export default class QuestionsPage extends React.Component {
                                 })
                                 .then((game_id) => {
                                     context.updateContext({ game_id: game_id });
-                                    route.push(
-                                        '/game/' + sessionName + '/' + game_id
-                                    );
+                                    route.push('/game/' + game_id);
                                 });
                         }
                     }
 
                     function goToGame(e) {
+                        const updateGameId = {
+                            game_id: game_id,
+                        };
+
+                        context.updateContext(updateGameId);
+
                         for (const [key, value] of Object.entries(
                             returnInputs
                         )) {
@@ -97,13 +99,7 @@ export default class QuestionsPage extends React.Component {
                         if (mainPlayerName !== '' && game_id !== '') {
                             GameApiService.getGame(game_id)
                                 .then((res) => {
-                                    const { id, round, game_name } = res[0];
-
-                                    gameUpdate.sessionName = game_name;
-
-                                    context.updateContext({
-                                        sessionName: game_name,
-                                    });
+                                    const { id, round } = res[0];
 
                                     GameApiService.getPlayers(id)
                                         .then((res) => {
@@ -178,7 +174,6 @@ export default class QuestionsPage extends React.Component {
                                                         );
                                                         gameUpdate.current_judge =
                                                             judge[0].id;
-                                                        gameUpdate.sessionName = game_name;
                                                     })
                                                     .then(() => {
                                                         context.updateContext({
@@ -199,12 +194,7 @@ export default class QuestionsPage extends React.Component {
                                     return game_id;
                                 })
                                 .then((game_id) =>
-                                    route.push(
-                                        '/game/' +
-                                            gameUpdate.sessionName +
-                                            '/' +
-                                            game_id
-                                    )
+                                    route.push('/game/' + game_id)
                                 );
                         }
                     }
@@ -229,19 +219,7 @@ export default class QuestionsPage extends React.Component {
                                 />
                             </div>
                             {context.newGame !== false ? (
-                                <div className="session-question form-question">
-                                    <p className="question">
-                                        Name your session
-                                    </p>
-                                    <input
-                                        type="text"
-                                        id="session-input"
-                                        className="question-input"
-                                        onChange={(e) => {
-                                            context.updateSessionName(e);
-                                        }}
-                                    />
-                                </div>
+                                <div className="session-question form-question"></div>
                             ) : (
                                 <div className="session-question form-question">
                                     <p className="question">Session ID</p>

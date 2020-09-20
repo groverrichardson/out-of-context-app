@@ -9,6 +9,7 @@ export default class Responses extends React.Component {
         this.state = {
             hover: '',
             response_chosen: false,
+            update: 0,
         };
     }
 
@@ -75,17 +76,33 @@ export default class Responses extends React.Component {
         if (currentJudgeIndex === players.length - 1) {
             players.forEach((player) => {
                 if (player.id === playerOneId) {
-                    GameApiService.updatePlayerStatus(player.id, 'Judge');
+                    GameApiService.updatePlayerStatus(
+                        player.id,
+                        'Judge',
+                        'false'
+                    );
                 } else {
-                    GameApiService.updatePlayerStatus(player.id, 'Player');
+                    GameApiService.updatePlayerStatus(
+                        player.id,
+                        'Player',
+                        'false'
+                    );
                 }
             });
         } else {
             players.forEach((player, index) => {
                 if (index === newJudgeIndex) {
-                    GameApiService.updatePlayerStatus(player.id, 'Judge');
+                    GameApiService.updatePlayerStatus(
+                        player.id,
+                        'Judge',
+                        'false'
+                    );
                 } else {
-                    GameApiService.updatePlayerStatus(player.id, 'Player');
+                    GameApiService.updatePlayerStatus(
+                        player.id,
+                        'Player',
+                        'false'
+                    );
                 }
             });
         }
@@ -134,7 +151,6 @@ export default class Responses extends React.Component {
     }
 
     render() {
-        console.log(this.props.context.players);
         return (
             <div className="response-container">
                 <h1 className="player-responses-header">Player Responses</h1>

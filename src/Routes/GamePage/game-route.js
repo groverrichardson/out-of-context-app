@@ -4,7 +4,6 @@ import ResponseSection from '../../Components/response-section-judge';
 import ResponseSectionPlayer from '../../Components/response-section-player';
 import { GameContext } from '../../game-context';
 import GameApiService from '../../services/game_api_service';
-// import { Link } from "react-router-dom";
 
 export default class GamePage extends React.Component {
     _isMounted = true;
@@ -42,7 +41,7 @@ export default class GamePage extends React.Component {
                         if (
                             localStorage.getItem('player_status') === 'Player'
                         ) {
-                            return <ResponseSectionPlayer />;
+                            return <ResponseSectionPlayer context={context} />;
                         } else {
                             return <ResponseSection />;
                         }
@@ -80,7 +79,7 @@ export default class GamePage extends React.Component {
                                             {
                                                 window.location.pathname.split(
                                                     '/'
-                                                )[3]
+                                                )[2]
                                             }
                                         </p>
                                         <Dashboard state={context} />
@@ -88,11 +87,15 @@ export default class GamePage extends React.Component {
                                     </div>
                                     <div className="player-responses"></div>
                                 </div>
-                            ) : (
+                            ) : localStorage.getItem('player_status') ===
+                              'Judge' ? (
                                 <section className="waiting-section">
                                     <h2 className="waiting-header">
                                         Players in the Waiting Room
                                     </h2>
+                                    <h3 className="session-id">
+                                        Your session ID is: {context.game_id}
+                                    </h3>
                                     {displayPlayers(context.players)}
                                     <button
                                         className="start-game"
@@ -100,6 +103,16 @@ export default class GamePage extends React.Component {
                                     >
                                         Start Game
                                     </button>
+                                </section>
+                            ) : (
+                                <section className="waiting-section">
+                                    <h2 className="waiting-header">
+                                        Waiting on host to start game
+                                    </h2>
+                                    <h3 className="players-header">
+                                        Players in waiting room
+                                    </h3>
+                                    {displayPlayers(context.players)}
                                 </section>
                             )}
                         </div>

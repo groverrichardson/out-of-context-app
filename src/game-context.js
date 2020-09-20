@@ -21,12 +21,14 @@ class GameContextProvider extends Component {
             scoreboardVisible: false,
             buttonText: true,
             activeView: 'Player',
-            game_id: parseInt(window.location.pathname.split('/')[3]),
+            game_id: parseInt(window.location.pathname.split('/')[2]),
             newGame: true,
             current_judge: '',
             cards_played: '',
             number_of_players: '',
             gameActive: '',
+            roundCheck: '',
+            answerSubmitted: "false",
         };
     }
 
@@ -49,13 +51,24 @@ class GameContextProvider extends Component {
                             let currentJudge = players.filter(
                                 (player) => player.player_status === 'Judge'
                             );
+                            let playerId = parseInt(
+                                localStorage.getItem('player_id')
+                            );
+                            let currentPlayer = players.filter(
+                                (player) => player.id === playerId
+                            );
+
+                            console.log(currentPlayer)
+
                             if (isMounted && this.state.game_id) {
                                 this.setState({
                                     active_card_id: active_card,
-                                    players: players,
+                                    players: players.sort(),
                                     round: round,
                                     current_judge: currentJudge,
                                     gameActive: game_status,
+                                    answerSubmitted:
+                                        currentPlayer[0].answer_submitted,
                                 });
                                 localStorage.setItem('round', this.state.round);
                             }

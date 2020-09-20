@@ -1,13 +1,13 @@
 import config from '../config';
 
 const GameApiService = {
-    createGame(route, game_status, game_name, player_name) {
+    createGame(route, game_status, player_name) {
         const createGameOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
         };
         return fetch(
-            `${config.API_ENDPOINT}/create-game?game_status=${game_status}&game_name=${game_name}&player_name=${player_name}`,
+            `${config.API_ENDPOINT}/create-game?game_status=${game_status}&player_name=${player_name}`,
             createGameOptions
         ).then((res) => {
             return res.json();
@@ -46,7 +46,7 @@ const GameApiService = {
             headers: { 'Content-Type': 'application/json' },
         };
         return fetch(
-            `${config.API_ENDPOINT}/players?player_name=${player_name}&points=0&player_status=Player&game_id=${game_id}`,
+            `${config.API_ENDPOINT}/players?player_name=${player_name}&points=0&player_status=Player&game_id=${game_id}&answer_submitted=false`,
             createOptions
         ).then((res) => {
             return res.json();
@@ -60,7 +60,7 @@ const GameApiService = {
         };
         return fetch(
             `${config.API_ENDPOINT}/active-card/${
-                window.location.pathname.split('/')[3]
+                window.location.pathname.split('/')[2]
             }`,
             Options
         )
@@ -162,13 +162,14 @@ const GameApiService = {
         });
     },
 
-    updatePlayerStatus(player_id, player_status) {
+    updatePlayerStatus(player_id, player_status, answer_submitted) {
+        console.log({player_id, player_status, answer_submitted})
         const Options = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
         };
         return fetch(
-            `${config.API_ENDPOINT}/players/${player_id}?player_status=${player_status}`,
+            `${config.API_ENDPOINT}/players/${player_id}?answer_submitted=${answer_submitted}&player_status=${player_status}`,
             Options
         ).then((res) => {
             return res.json();
