@@ -163,7 +163,6 @@ const GameApiService = {
     },
 
     updatePlayerStatus(player_id, player_status, answer_submitted) {
-        console.log({player_id, player_status, answer_submitted})
         const Options = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },

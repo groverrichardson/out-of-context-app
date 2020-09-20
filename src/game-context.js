@@ -54,7 +54,6 @@ class GameContextProvider extends Component {
     }
 
     getDashboard(isMounted) {
-        console.log(this.state.players);
         if (this.state.game_id) {
             GameApiService.getDashboard(this.state.game_id).then(
                 (dashboard) => {

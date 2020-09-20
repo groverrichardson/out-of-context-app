@@ -14,8 +14,11 @@ export default class Responses extends React.Component {
     }
 
     displayResponses() {
-        if (this.props.context.responses) {
-            const filteredList = this.props.context.responses.filter(
+        let responses = this.props.context.responses;
+        let players = this.props.context.players;
+
+        if (responses && responses.length === players.length - 1) {
+            const filteredList = responses.filter(
                 (response) => response.answer
             );
 
