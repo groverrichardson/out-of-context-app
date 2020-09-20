@@ -28,7 +28,7 @@ class GameContextProvider extends Component {
             number_of_players: '',
             gameActive: '',
             roundCheck: '',
-            answerSubmitted: "false",
+            answerSubmitted: 'false',
         };
     }
 
@@ -40,7 +40,21 @@ class GameContextProvider extends Component {
         checkForUpdate();
     }
 
+    comparePlayersID(a, b) {
+        let playerA = parseInt(a.id);
+        let playerB = parseInt(b.id);
+
+        let comparison = 0;
+        if (playerA > playerB) {
+            comparison = 1;
+        } else if (playerA < playerB) {
+            comparison = -1;
+        }
+        return comparison;
+    }
+
     getDashboard(isMounted) {
+        console.log(this.state.players);
         if (this.state.game_id) {
             GameApiService.getDashboard(this.state.game_id).then(
                 (dashboard) => {
@@ -58,12 +72,12 @@ class GameContextProvider extends Component {
                                 (player) => player.id === playerId
                             );
 
-                            console.log(currentPlayer)
-
                             if (isMounted && this.state.game_id) {
                                 this.setState({
                                     active_card_id: active_card,
-                                    players: players.sort(),
+                                    players: players.sort(
+                                        this.comparePlayersID
+                                    ),
                                     round: round,
                                     current_judge: currentJudge,
                                     gameActive: game_status,
