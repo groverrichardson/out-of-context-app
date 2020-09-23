@@ -206,7 +206,7 @@ export default class QuestionsPage extends React.Component {
                     };
 
                     return (
-                        <form className="questions-container">
+                        <form className={window.location.pathname === '/questions' ? "questions-container hide-overflow" : "questions-container"}>
                             <div className="name-question form-question">
                                 <p className="question">What's your name?</p>
                                 <input

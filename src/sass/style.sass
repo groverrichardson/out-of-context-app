@@ -14,6 +14,11 @@
 .hide
     display: none
 
+.hide-overflow
+    height: 100vh
+    overflow: hidden
+    width: 100vw
+
 h1
     font-size: 60px
 
@@ -31,9 +36,8 @@ body
     justify-content: center
     align-items: center
     overflow-x: hidden
-    overflow-y: auto
     box-sizing: border-box
-    margin-top: 50px
+    height: 100%
     @media screen and (max-width: 769px)
         margin-bottom: 50px
 
@@ -43,6 +47,7 @@ body
     justify-content: center
     align-items: center
     position: relative
+
 
 // Universal Buttons
 .new, .returning, .submit, .start-game, .answer-submit-button
@@ -75,20 +80,25 @@ body
 .lines 
     position: absolute
     z-index: -1
-    overflow: hidden
 
 .lines-top-left
-    right: 500px
-    bottom: 0px
+    right: 802px
+    bottom: 222px
     @media screen and (max-width: 769px)
-        right: 100px
+        right: 162px
+        bottom: 300px
+    @media screen and (min-width: 600px) and (max-width: 780px)
+        right: 495px
         bottom: 300px
 
 .lines-bottom-right
-    left: 600px
-    top: 100px
+    left: 945px
+    top: 171px
     @media screen and (max-width: 769px)
-        left: 100px
+        left: 214px
+        top: 100px
+    @media screen and (min-width: 600px) and (max-width: 780px)
+        left: 600px
         top: 100px
 
 // Questions Page 
@@ -256,6 +266,7 @@ body
         justify-content: center
         flex-flow: column-reverse
         align-items: center
+        margin-top: 25px
     @media screen and (min-width: 767px)
         max-width: 78vw
         margin-bottom: 3vh
@@ -335,6 +346,7 @@ body
     display: flex
     flex-flow: column
     justify-content: flex-start
+    align-items: center
     @media screen and (max-width: 600px)
         margin: 25px 0px 25px 0px
     @media screen and (max-width: 769px)
@@ -429,3 +441,6 @@ body
     flex-flow: row wrap
     justify-content: flex-start
     align-items: center
+
+.turn-text
+    color: $pink

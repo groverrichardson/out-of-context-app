@@ -17,7 +17,7 @@ export default class LandingPage extends React.Component {
                         context.updateContext(newGameKeyValue);
                     };
                     return (
-                        <div className="main-container">
+                        <div className={(window.location.pathname.length === 1) ? "main-container hide-overflow" : "main-container"}>
                             <section className="logo-lines">
                                 <img
                                     src={LinesTopLeft}
