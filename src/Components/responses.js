@@ -17,6 +17,8 @@ export default class Responses extends React.Component {
         let responses = this.props.context.responses;
         let players = this.props.context.players;
 
+        console.log(responses);
+
         if (responses && responses.length === players.length - 1) {
             const filteredList = responses.filter(
                 (response) => response.answer
@@ -47,7 +49,7 @@ export default class Responses extends React.Component {
                 );
             });
 
-            return <div>{responseList}</div>;
+            return <div className="responses">{responseList}</div>;
         }
     }
 
@@ -156,12 +158,12 @@ export default class Responses extends React.Component {
     render() {
         return (
             <div className="response-container">
-                <h1 className="player-responses-header">Player Responses</h1>
-                <h2 className="favorite-response">
+                <h2 className="player-responses-header">Player Responses</h2>
+                <h3 className="favorite-response">
                     Choose your favorite response
-                </h2>
+                </h3>
                 {this.state.response_chosen === false ? (
-                    <div className="responses">{this.displayResponses()}</div>
+                    this.displayResponses()
                 ) : (
                     <div></div>
                 )}

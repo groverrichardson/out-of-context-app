@@ -3,6 +3,7 @@ import Scoreboard from '../Components/scoreboard';
 import CardWindow from '../Components/card-window';
 import ScoreboardMobile from '../Components/scoreboard-mobile';
 import { GameContext } from '../game-context';
+import ArrowDown from '../assets/keyboard_arrow_down-24px.svg';
 
 class Dashboard extends React.Component {
     state = {
@@ -37,7 +38,12 @@ class Dashboard extends React.Component {
                             >
                                 {this.state.scoreboardVisible
                                     ? 'Hide Scoreboard'
-                                    : 'Show Scoreboard'}
+                                    : 'View Scoreboard'}{' '}
+                                <img
+                                    src={ArrowDown}
+                                    alt="Down arrow"
+                                    className="arrow-down"
+                                />
                             </button>
                             <CardWindow context={context} />
                         </div>

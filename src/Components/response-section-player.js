@@ -22,41 +22,43 @@ export default class ResponseSectionPlayer extends React.Component {
 
         return (
             <div className="player-view">
-                {this.props.context.answerSubmitted === "false" ? (
-                    <div className="answer-submit">
-                        <h3 className="answer-submit-header">
+                {this.props.context.answerSubmitted === 'false' ? (
+                    <form
+                        className="answer-submit"
+                        onSubmit={(e) => {
+                            e.preventDefault();
+                            GameApiService.addAnswer(
+                                round,
+                                game_id,
+                                player_id,
+                                this.state.answer
+                            );
+                            GameApiService.updatePlayerStatus(
+                                player_id,
+                                'Player',
+                                'true'
+                            );
+                        }}
+                    >
+                        <h2 className="answer-submit-header">
                             Submit your response
-                        </h3>
+                        </h2>
                         <textarea
+                            type="input"
                             placeholder="Type your answer here"
                             className="player-answer"
                             onChange={(e) => {
                                 updateAnswer(e);
                             }}
                         ></textarea>
-                        <button
-                            className="answer-submit-button"
-                            onClick={(e) => {
-                                GameApiService.addAnswer(
-                                    round,
-                                    game_id,
-                                    player_id,
-                                    this.state.answer
-                                );
-                                GameApiService.updatePlayerStatus(
-                                    player_id,
-                                    'Player',
-                                    "true"
-                                );
-                            }}
-                        >
+                        <button type="submit" className="answer-submit-button">
                             Submit Answer
                         </button>
-                    </div>
+                    </form>
                 ) : (
-                    <h3 className="answer-confirmation">
-                        Answer submitted. Please wait for judge...
-                    </h3>
+                    <h2 className="answer-confirmation">
+                        Answer submitted. Please wait for judge
+                    </h2>
                 )}
             </div>
         );

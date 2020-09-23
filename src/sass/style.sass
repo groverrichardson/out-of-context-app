@@ -1,8 +1,431 @@
 // Helpers
 @import /1-helpers/_mixins
+@import /1-helpers/_variables
 
-/** Routes **/
-@import ../Routes/QuestionsPage/_questions-route.sass
-@import ../Routes/LandingPage/_landing-page-route.sass
-@import ../Routes/NotFoundPage/_not-found-route.sass
-@import ../Routes/GamePage/_game-route.sass
+// Routes 
+
+
+// Universal Styles
+* 
+    font-family: 'Oswald', sans-serif
+    font-style: Italic
+    margin: 0px
+
+.hide
+    display: none
+
+h1
+    font-size: 60px
+
+h2 
+    font-size: 30px
+
+h3
+    font-size: 20px
+    font-weight: normal
+    @media screen and (max-width: 769px)
+            font-size: 16px
+
+body
+    display: flex
+    justify-content: center
+    align-items: center
+    overflow-x: hidden
+    overflow-y: auto
+    box-sizing: border-box
+    margin-top: 50px
+    @media screen and (max-width: 769px)
+        margin-bottom: 50px
+
+.main-container, .question-container
+    display: flex
+    flex-direction: column
+    justify-content: center
+    align-items: center
+    position: relative
+
+// Universal Buttons
+.new, .returning, .submit, .start-game, .answer-submit-button
+    +mainButton
+
+.start-game
+    &:hover
+        cursor: pointer
+
+.returning
+    background-color: $purple
+
+.new
+    @media screen and (max-width: 769px)
+        margin-bottom: 15px
+
+// Landing Page
+.start-menu
+    max-width: 90vw
+    width: 686px
+    display: flex
+    flex-flow: row wrap
+    justify-content: space-evenly
+
+.logo
+    height: 305.21px
+    margin-bottom: 62.76px
+    max-width: 80vw
+
+.lines 
+    position: absolute
+    z-index: -1
+    overflow: hidden
+
+.lines-top-left
+    right: 500px
+    bottom: 0px
+    @media screen and (max-width: 769px)
+        right: 100px
+        bottom: 300px
+
+.lines-bottom-right
+    left: 600px
+    top: 100px
+    @media screen and (max-width: 769px)
+        left: 100px
+        top: 100px
+
+// Questions Page 
+.question
+    font-size: 60px
+    text-align: center
+    margin-bottom: 0px
+    margin-top: 25px
+    @media screen and (max-width: 769px)
+        line-height: 60px
+
+.questions-container
+    +flexCenter
+    flex-flow: column wrap
+
+.form-question
+    +flexCenter
+    flex-direction: column
+    max-width: 90vw
+    justify-content: center
+    align-items: center
+
+.question-input
+    line-height: 100px
+    font-size: 48px
+    border: none
+    border-bottom: 3px solid $pink
+    max-width: 80vw
+    text-align: center
+    color: $purple
+    
+.question-input:focus
+    outline: none
+
+.submit
+    margin-top: 100px
+
+// Waiting Room
+.page-container
+    +flexCenter
+    flex-flow: column wrap
+    max-width: 90vw
+
+.instructions
+    width: 650px
+    max-width: 80vw
+    padding-left: unset
+    font-size: 20px
+    font-weight: normal
+    margin: 25px 0px 25px 0px
+    @media screen and (max-width: 769px)
+        font-size: 16px
+
+.lines-instructions
+    position: absolute
+    z-index: -1
+    overflow: hidden
+
+.lines-top-left-instructions
+    right: 500px
+    bottom: 300px
+    @media screen and (max-width: 769px)
+        right: 200px
+        bottom: 300px
+
+.lines-top-right-instructions
+    left: 500px
+    bottom: 300px
+    @media screen and (max-width: 769px)
+        right: 100px
+        bottom: 300px
+
+.lines-bottom-left-instructions
+    right: 500px
+    top: 400px
+    @media screen and (max-width: 769px)
+        right: 100px
+        bottom: 300px
+
+.lines-bottom-right-instructions
+    left: 500px
+    top: 400px
+    @media screen and (max-width: 769px)
+        right: 100px
+        bottom: 300px
+
+.how-to-play-header
+    margin-top: 0px
+
+.waiting-section
+    display: flex
+    flex-flow: column wrap
+    justify-content: center
+    align-items: center
+    position: relative
+
+.session-number
+    font-size: 60px
+    color: $pink
+    margin: .3vh 0px .3vh 0px
+
+.player-name
+    font-size: 25px
+    color: $purple
+    margin: 0px 0px 30px 0px
+    &:nth-child(odd)
+        margin-right: 15px
+        color: $pink
+
+.players-in-room
+    margin: 0px 0px 15px 0px
+    &:after 
+        overflow: hidden
+        display: inline-block
+        vertical-align: bottom
+        -webkit-animation: ellipsis steps(4,end) 900ms infinite      
+        animation: ellipsis steps(4,end) 900ms infinite
+        content: "\2026"
+        width: 0px
+        @keyframes ellipsis 
+            to 
+                width: 1.25em    
+        @-webkit-keyframes ellipsis 
+            to 
+                width: 1.25em 
+
+.player-container
+    +flexCenter
+    flex-flow: row wrap
+    max-width: 90vw
+
+.waiting-header
+    margin-bottom: 25px
+    text-align: center
+    &:after 
+        overflow: hidden
+        display: inline-block
+        vertical-align: bottom
+        -webkit-animation: ellipsis steps(4,end) 900ms infinite      
+        animation: ellipsis steps(4,end) 900ms infinite
+        content: "\2026"
+        width: 0px
+        @keyframes ellipsis 
+            to 
+                width: 1.25em    
+        @-webkit-keyframes ellipsis 
+            to 
+                width: 1.25em   
+    @media screen and (max-width: 769px)
+        font-size: 20px
+  
+// Game Page 
+.scoreboard-container
+    @media screen and (max-width: 769px)
+        display: none
+
+.dashboard
+    display: flex
+    flex-flow: row wrap-reverse
+    justify-content: space-between
+    align-self: center
+    width: 790px
+    max-width: 90vw
+    @media screen and (max-width: 769px)
+        justify-content: center
+        flex-flow: column-reverse
+        align-items: center
+    @media screen and (min-width: 767px)
+        max-width: 78vw
+        margin-bottom: 3vh
+      
+.scoreboard-button
+    display: flex
+    flex-flow: row
+    justify-content: space-between
+    align-items: center
+    width: 165px
+    border: none
+    color: $pink
+    background: none
+    font-size: 20px
+    margin: 25px 0px 25px 0px
+    @media screen and (min-width: 769px)
+        display: none
+
+.card-container
+    width: 505px
+    max-width: 90vw
+
+.card
+    width: 100%
+    border: 2px solid $purple
+    height: 300px
+    border-radius: 75px
+    display: flex
+    flex-flow: column 
+    box-sizing: border-box
+    padding: 10px
+
+.card-text
+    font-size: 35px
+    font-weight: normal
+    @media screen and (max-width: 600px)
+        font-size: 7vw
+
+.turn-container
+    margin: 50px 50px auto auto
+    align-self: flex-end
+
+.text-container
+    margin: 0px auto 25% auto
+    @media screen and (max-width: 769px)
+        margin: 0px auto 35% auto
+
+.counts-container
+    display: flex
+    justify-content: flex-start
+    flex-flow: row wrap
+    align-items: center
+    @media screen and (max-width: 769px)
+        justify-content: center
+
+.thread-count
+    margin-right: 15px
+    +flexCenter 
+    font-size: 20px
+
+.message-count
+    +flexCenter 
+    font-size: 20px
+
+.thread-number, .message-number
+    font-size: 30px
+    color: $pink
+    margin-left: 15px
+
+.scoreboard
+    width: 200px
+    max-width: 90vw
+    height: 300px
+    background-color: #EFEFEF
+    padding: 15px
+    border-radius: 50px
+    display: flex
+    flex-flow: column
+    justify-content: flex-start
+    @media screen and (max-width: 600px)
+        margin: 25px 0px 25px 0px
+    @media screen and (max-width: 769px)
+        height: fit-content
+    
+
+.player-container
+    width: 150px
+    display: flex
+    flex-direction: row
+    justify-content: space-between
+    align-items: center
+    font-size: 25px
+    max-width: 90%
+    margin: 0px
+    box-sizing: border-box
+
+.player-name-game
+    margin: 0px
+
+.player-message-section
+    display: flex
+    flex-flow: row wrap
+    width: 100%
+    justify-content: space-between
+    max-width: 80vw
+
+.response-container
+    width: 500px
+    max-width: 90vw
+    min-height: 100px
+    @media screen and (max-width: 600px)
+        margin-top: 25px
+
+.answer-submit
+    display: flex
+    flex-flow: column
+    width: 400px
+    max-width: 90vw
+
+.answer-submit-header
+    margin-bottom: 15px
+
+.player-answer
+    min-height: 100px
+    margin-bottom: 15px
+    border: 2px solid black
+    resize: none
+    font-size: 20px
+    padding-top: 2px
+
+.answer-confirmation
+    &:after 
+        overflow: hidden
+        display: inline-block
+        vertical-align: bottom
+        -webkit-animation: ellipsis steps(4,end) 900ms infinite      
+        animation: ellipsis steps(4,end) 900ms infinite
+        content: "\2026"
+        width: 0px
+        @keyframes ellipsis 
+            to 
+                width: 1.25em    
+        @-webkit-keyframes ellipsis 
+            to 
+                width: 1.25em 
+
+.players-header
+    margin-bottom: 25px
+
+.response
+    background-color: $purple
+    color: white
+    box-sizing: border-box
+    text-align: center
+    width: fit-content
+    padding: 10px 25px 10px 25px
+    font-size: 16px
+    border-radius: 50px
+    margin-top: 15px
+    &:nth-child(odd)
+        background-color: $blue
+        margin-right: 15px
+    &:hover
+        cursor: pointer
+
+.favorite-response
+    margin-bottom: 10px
+
+.responses
+    display: flex
+    flex-flow: row wrap
+    justify-content: flex-start
+    align-items: center

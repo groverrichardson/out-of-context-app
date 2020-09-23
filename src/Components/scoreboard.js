@@ -6,8 +6,8 @@ export default class Scoreboard extends React.Component {
         const playersList = players.map((player, i) => {
             return (
                 <div key={i} className="player-container">
-                    <p className="player-name">{player.player_name}</p>
-                    <p className="playerscore">{player.points}</p>
+                    <p className="player-name-game">{player.player_name}</p>
+                    <p className="player-score">{player.points}</p>
                 </div>
             );
         });
@@ -21,9 +21,9 @@ export default class Scoreboard extends React.Component {
                     return (
                         <div className={`scoreboard-container `}>
                             <div className="scoreboard">
-                                <h1 className="scoreboard-header">
+                                <h2 className="scoreboard-header">
                                     Scoreboard
-                                </h1>
+                                </h2>
                                 <div className="players">
                                     {this.displayPlayers(context.players)}
                                 </div>

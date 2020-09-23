@@ -7,7 +7,10 @@ class CardWindow extends React.Component {
         if (this.props.context.active_card) {
             return (
                 <p className="thread-count">
-                    Thread: {this.props.context.active_card.thread_count}
+                    <span>Conversation:</span>
+                    <span className="thread-number">
+                        {this.props.context.active_card.thread_count}
+                    </span>
                 </p>
             );
         }
@@ -16,7 +19,10 @@ class CardWindow extends React.Component {
         if (this.props.context.active_card) {
             return (
                 <p className="message-count">
-                    Message: {this.props.context.active_card.message_count}
+                    <span>Message:</span>
+                    <span className="message-number">
+                        {this.props.context.active_card.message_count}
+                    </span>
                 </p>
             );
         }

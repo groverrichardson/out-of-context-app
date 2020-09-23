@@ -1,60 +1,26 @@
+@import /_variables
+
 =mainButton 
-    padding-top: 15px
-    padding-bottom: 15px
-    padding-right: 30px
-    font-size: 24px
-    padding-left: 30px
-    border: solid 1px
-    background-color: lightgrey
+    background-color: $pink
+    border: none
+    color: white
     text-decoration: none
-    color: black
+    font-family: 'Oswald', sans-serif
+    font-size: 46px
     text-align: center
-    @media screen and (max-width: 555px)
-        width: -webkit-fill-available
-
-=mediumButton
-    padding-top: 10px
-    padding-bottom: 10px
-    padding-right: 30px
-    padding-left: 30px
-    border: solid 1px black
-    text-decoration: none
-    color: black
-    background-color: lightgrey
-    text-align: center
-
+    box-sizing: border-box
+    height: 80px
+    padding: 0px 50px 0px 50px
+    @media screen and (max-width: 600px)
+        width: 90vw
+        
 =flexCenter
     display: flex
     justify-content: center
     align-items: center
-
-=counter
-    display: flex
-    flex-direction: row
-    font-size: 12px
 
 =normalizePadding
     padding-left: 0px
     padding-right: 0px
     padding-bottom: 0px
     padding-top: 0px
-
-=mobileButton
-    display: none
-    margin-top: 15px
-    padding-top: 10px
-    padding-bottom: 10px
-    border: solid 1px
-    text-align: center
-    @media screen and (max-width: 1262px) 
-        display: block
-
-=errorMessage
-    background-color: indianred
-    width: 100%
-    display: flex
-    justify-content: center
-    align-items: center
-    color: white
-    margin-bottom: 50px
-    flex-direction: column

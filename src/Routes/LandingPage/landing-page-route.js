@@ -1,7 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import img from '../../assets/Logo.png';
+import Logo from '../../assets/out-of-context-wordmark-blue.svg';
 import { GameContext } from '../../game-context';
+import LinesTopLeft from '../../assets/lines-top-left.svg';
+import LinesBottomRight from '../../assets/lines-bottom-right.svg';
 
 export default class LandingPage extends React.Component {
     render() {
@@ -16,8 +18,20 @@ export default class LandingPage extends React.Component {
                     };
                     return (
                         <div className="main-container">
+                            <section className="logo-lines">
+                                <img
+                                    src={LinesTopLeft}
+                                    alt="Background Lines"
+                                    className="lines lines-top-left"
+                                />
+                                <img
+                                    src={LinesBottomRight}
+                                    alt="Background Lines"
+                                    className="lines lines-bottom-right"
+                                />
+                            </section>
                             <img
-                                src={img}
+                                src={Logo}
                                 alt="Out of Context logo"
                                 className="logo"
                             />
@@ -30,10 +44,7 @@ export default class LandingPage extends React.Component {
                                     className="returning"
                                     onClick={updateNewGame}
                                 >
-                                    Join Existing Game
-                                </Link>
-                                <Link to={'/questions'} className="how-to-play">
-                                    How to Play
+                                    Join Game
                                 </Link>
                             </div>
                         </div>

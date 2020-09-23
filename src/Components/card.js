@@ -59,8 +59,7 @@ export default class Card extends React.Component {
                     };
                     return (
                         <div className="card">
-                            <div className="turn-container"></div>
-                            {updateTurn()}
+                            <div className="turn-container">{updateTurn()}</div>
                             <div className="text-container">
                                 {this.displayCardText()}
                             </div>

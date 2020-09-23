@@ -10,6 +10,15 @@ export default class ResponseSection extends React.Component {
                     return (
                         <div className="player-message-section">
                             <Responses context={context} />
+                            <section className="invitation">
+                                <h2 className="session-id-header">
+                                    Invite your friends!
+                                </h2>
+                                <p className="session-id">
+                                    Your session ID is:{' '}
+                                    {window.location.pathname.split('/')[2]}
+                                </p>
+                            </section>
                         </div>
                     );
                 }}
