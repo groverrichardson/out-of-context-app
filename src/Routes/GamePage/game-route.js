@@ -41,6 +41,7 @@ export default class GamePage extends React.Component {
         return (
             <GameContext.Consumer>
                 {(context) => {
+                    console.log(context);
                     const displayView = () => {
                         if (
                             localStorage.getItem('player_status') === 'Player'
@@ -54,7 +55,7 @@ export default class GamePage extends React.Component {
                     const displayPlayers = (players) => {
                         const playersList = players.map((player, i) => {
                             return (
-                                <p className="player-name">
+                                <p key={i} className="player-name">
                                     {player.player_name}
                                 </p>
                             );
@@ -74,7 +75,13 @@ export default class GamePage extends React.Component {
                     };
 
                     return (
-                        <div className="page-container">
+                        <div
+                            className={
+                                context.scoreboardVisible === 'true'
+                                    ? 'page-container fit-content'
+                                    : 'page-container hide-overflow'
+                            }
+                        >
                             {context.gameActive === 'Active' ? (
                                 <div className="game-page-container">
                                     <div className="main-container">

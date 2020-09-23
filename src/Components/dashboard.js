@@ -19,10 +19,12 @@ class Dashboard extends React.Component {
                             this.setState({
                                 scoreboardVisible: true,
                             });
+                            context.updateContext({ scoreboardVisible: true });
                         } else {
                             this.setState({
                                 scoreboardVisible: false,
                             });
+                            context.updateContext({ scoreboardVisible: false });
                         }
                     };
                     return (

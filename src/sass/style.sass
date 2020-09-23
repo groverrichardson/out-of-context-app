@@ -15,15 +15,23 @@
     display: none
 
 .hide-overflow
-    height: 100vh
+    height: fit-content
     overflow: hidden
     width: 100vw
+    @media screen and (max-width: 374px)
+        height: fit-content
+    @media screen and (min-width: 600px)
+        height: 100vh
 
 h1
     font-size: 60px
+    @media screen and (max-width: 374px)
+        font-size: 30px
 
 h2 
     font-size: 30px
+    @media screen and (max-width: 374px)
+        font-size: 20px
 
 h3
     font-size: 20px
@@ -56,6 +64,14 @@ body
 .start-game
     &:hover
         cursor: pointer
+    @media screen and (max-width: 374px)
+        font-size: 20px
+
+.answer-submit-button
+    &:hover
+        cursor: pointer
+    @media screen and (max-width: 600px)
+        align-self: center
 
 .returning
     background-color: $purple
@@ -140,7 +156,6 @@ body
 .page-container
     +flexCenter
     flex-flow: column wrap
-    max-width: 90vw
 
 .instructions
     width: 650px
@@ -162,6 +177,9 @@ body
     bottom: 300px
     @media screen and (max-width: 769px)
         right: 200px
+        bottom: 300px
+    @media screen and (min-width: 600px) and (max-width: 769px)
+        right: 444px
         bottom: 300px
 
 .lines-top-right-instructions
@@ -199,6 +217,8 @@ body
     font-size: 60px
     color: $pink
     margin: .3vh 0px .3vh 0px
+    @media screen and (max-width: 374px)
+        font-size: 30px
 
 .player-name
     font-size: 25px
@@ -297,7 +317,21 @@ body
     display: flex
     flex-flow: column 
     box-sizing: border-box
-    padding: 10px
+    padding: 20px
+    position: relative
+
+.card-outline
+    position: absolute
+    width: 100%
+    border: 2px solid $blue
+    height: 300px
+    border-radius: 75px
+    display: flex
+    flex-flow: column 
+    box-sizing: border-box
+    padding: 20px
+    top: -10px
+    left: -10px
 
 .card-text
     font-size: 35px
@@ -306,13 +340,13 @@ body
         font-size: 7vw
 
 .turn-container
-    margin: 50px 50px auto auto
+    margin: 7% 50px auto auto
     align-self: flex-end
+    @media screen and (max-width: 374px)    
+        margin: 7% 7% 20% auto
 
 .text-container
     margin: 0px auto 25% auto
-    @media screen and (max-width: 769px)
-        margin: 0px auto 35% auto
 
 .counts-container
     display: flex
@@ -399,6 +433,7 @@ body
     padding-top: 2px
 
 .answer-confirmation
+    max-width: 90vw
     &:after 
         overflow: hidden
         display: inline-block
@@ -444,3 +479,35 @@ body
 
 .turn-text
     color: $pink
+
+.session-id
+    font-size: 30px
+    font-weight: normal
+    @media screen and (max-width: 374px)
+        font-size: 20px
+
+.invitation
+    @media screen and (max-width: 769px)
+        margin-top: 50px
+
+.fit-content
+    height: fit-content
+
+.game-page-container
+    width: fit-content
+
+.favorite-response-ellipsis
+    &:after 
+        overflow: hidden
+        display: inline-block
+        vertical-align: bottom
+        -webkit-animation: ellipsis steps(4,end) 900ms infinite      
+        animation: ellipsis steps(4,end) 900ms infinite
+        content: "\2026"
+        width: 0px
+        @keyframes ellipsis 
+            to 
+                width: 1.25em    
+        @-webkit-keyframes ellipsis 
+            to 
+                width: 1.25em 

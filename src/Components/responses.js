@@ -17,8 +17,6 @@ export default class Responses extends React.Component {
         let responses = this.props.context.responses;
         let players = this.props.context.players;
 
-        console.log(responses);
-
         if (responses && responses.length === players.length - 1) {
             const filteredList = responses.filter(
                 (response) => response.answer
@@ -159,9 +157,18 @@ export default class Responses extends React.Component {
         return (
             <div className="response-container">
                 <h2 className="player-responses-header">Player Responses</h2>
-                <h3 className="favorite-response">
-                    Choose your favorite response
-                </h3>
+                {this.props.context.responses &&
+                this.props.context.responses.length ===
+                    this.props.context.players.length - 1 ? (
+                    <h3 className="favorite-response">
+                        Choose your favorite response
+                    </h3>
+                ) : (
+                    <h3 className="favorite-response-ellipsis">
+                        Waiting on responses from players
+                    </h3>
+                )}
+
                 {this.state.response_chosen === false ? (
                     this.displayResponses()
                 ) : (
