@@ -41,7 +41,7 @@ export default class GamePage extends React.Component {
         return (
             <GameContext.Consumer>
                 {(context) => {
-                    console.log(context);
+                    console.log(context.scoreboardVisible);
                     const displayView = () => {
                         if (
                             localStorage.getItem('player_status') === 'Player'
@@ -78,8 +78,8 @@ export default class GamePage extends React.Component {
                         <div
                             className={
                                 context.scoreboardVisible === 'true'
-                                    ? 'page-container fit-content'
-                                    : 'page-container hide-overflow'
+                                    ? 'page-container hide-overflow'
+                                    : 'page-container'
                             }
                         >
                             {context.gameActive === 'Active' ? (

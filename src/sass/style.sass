@@ -14,15 +14,6 @@
 .hide
     display: none
 
-.hide-overflow
-    height: fit-content
-    overflow: hidden
-    width: 100vw
-    @media screen and (max-width: 374px)
-        height: fit-content
-    @media screen and (min-width: 600px)
-        height: 100vh
-
 h1
     font-size: 60px
     @media screen and (max-width: 374px)
@@ -156,6 +147,8 @@ body
 .page-container
     +flexCenter
     flex-flow: column wrap
+    @media screen and (min-width: 768px)
+        height: 100vh
 
 .instructions
     width: 650px
@@ -272,7 +265,7 @@ body
   
 // Game Page 
 .scoreboard-container
-    @media screen and (max-width: 769px)
+    @media screen and (max-width: 1064px)
         display: none
 
 .dashboard
@@ -282,7 +275,7 @@ body
     align-self: center
     width: 790px
     max-width: 90vw
-    @media screen and (max-width: 769px)
+    @media screen and (max-width: 1024px)
         justify-content: center
         flex-flow: column-reverse
         align-items: center
@@ -302,7 +295,7 @@ body
     background: none
     font-size: 20px
     margin: 25px 0px 25px 0px
-    @media screen and (min-width: 769px)
+    @media screen and (min-width: 1024px)
         display: none
 
 .card-container
@@ -383,7 +376,7 @@ body
     align-items: center
     @media screen and (max-width: 600px)
         margin: 25px 0px 25px 0px
-    @media screen and (max-width: 769px)
+    @media screen and (max-width: 1024px)
         height: fit-content
     
 
@@ -511,3 +504,14 @@ body
         @-webkit-keyframes ellipsis 
             to 
                 width: 1.25em 
+
+.hide-overflow
+    height: fit-content
+    overflow: hidden
+    width: 100vw
+    @media screen and (min-width: 600px)
+        height: 100vh
+    @media screen and (max-width: 600px)
+        height: 100vh
+    @media screen and (max-width: 374px)
+        height: fit-content
