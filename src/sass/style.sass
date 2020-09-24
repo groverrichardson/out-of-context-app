@@ -97,6 +97,9 @@ body
     @media screen and (min-width: 600px) and (max-width: 780px)
         right: 495px
         bottom: 300px
+    @media screen and (min-width: 770px) and (max-width: 1024px)
+        right: 552px
+        bottom: 415px
 
 .lines-bottom-right
     left: 945px
@@ -107,6 +110,9 @@ body
     @media screen and (min-width: 600px) and (max-width: 780px)
         left: 600px
         top: 100px
+    @media screen and (min-width: 770px) and (max-width: 1024px)
+        left: 645px
+        top: 367px
 
 // Questions Page 
 .question
@@ -289,13 +295,13 @@ body
     flex-flow: row
     justify-content: space-between
     align-items: center
-    width: 165px
+    width: 200px
     border: none
     color: $pink
     background: none
     font-size: 20px
     margin: 25px 0px 25px 0px
-    @media screen and (min-width: 1024px)
+    @media screen and (min-width: 1025px)
         display: none
 
 .card-container
@@ -312,6 +318,7 @@ body
     box-sizing: border-box
     padding: 20px
     position: relative
+    align-items: center
 
 .card-outline
     position: absolute
@@ -333,13 +340,12 @@ body
         font-size: 7vw
 
 .turn-container
-    margin: 7% 50px auto auto
     align-self: flex-end
-    @media screen and (max-width: 374px)    
-        margin: 7% 7% 20% auto
+    margin: 0px 25px 0px 0px
 
 .text-container
-    margin: 0px auto 25% auto
+    margin-top: auto
+    margin-bottom: auto
 
 .counts-container
     display: flex
@@ -375,9 +381,11 @@ body
     justify-content: flex-start
     align-items: center
     @media screen and (max-width: 600px)
-        margin: 25px 0px 25px 0px
+        margin: 0px 0px 25px 0px
     @media screen and (max-width: 1024px)
         height: fit-content
+        width: 505px
+        max-width: 80vw
     
 
 .player-container
@@ -515,3 +523,6 @@ body
         height: 100vh
     @media screen and (max-width: 374px)
         height: fit-content
+
+.scoreboard-header
+    text-decoration: underline
